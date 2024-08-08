@@ -1,5 +1,6 @@
 package Task3;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,13 +91,28 @@ public class OnlineStore {
     }
 
     public void congratulateEmployees() {
+        LocalDate currentDate = LocalDate.now();
+
+        if (currentDate.getMonthValue() == 1 && currentDate.getDayOfMonth() == 1) {
+            congratulateWithHoliday(Holiday.NEW_YEAR);
+        } else if (currentDate.getMonthValue() == 3 && currentDate.getDayOfMonth() == 8) {
+            congratulateWithHoliday(Holiday.MARCH_8);
+        } else if (currentDate.getMonthValue() == 2 && currentDate.getDayOfMonth() == 23) {
+            congratulateWithHoliday(Holiday.FEBRUARY_23);
+        } else {
+            System.out.println("Сегодня нет праздников.");
+        }
+    }
+
+    private void congratulateWithHoliday(Holiday holiday) {
         for (Customer employee : customers) {
-            if (employee.getGender() == Gender.FEMALE) {
+            if (holiday == Holiday.NEW_YEAR) {
+                System.out.println("Поздравляем " + employee.getFullName() + " с Новым Годом!");
+            } else if (holiday == Holiday.MARCH_8 && employee.getGender() == Gender.FEMALE) {
                 System.out.println("Поздравляем " + employee.getFullName() + " с 8 марта!");
-            } else if (employee.getGender() == Gender.MALE) {
+            } else if (holiday == Holiday.FEBRUARY_23 && employee.getGender() == Gender.MALE) {
                 System.out.println("Поздравляем " + employee.getFullName() + " с 23 февраля!");
             }
-            System.out.println("Поздравляем " + employee.getFullName() + " с Новым Годом!");
         }
     }
 }
